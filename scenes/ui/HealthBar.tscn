@@ -1,24 +1,13 @@
 [gd_scene load_steps=2 format=3]
 
-# ExtResource = "External Resource" - reference to a file outside this scene
-# id="1" is just an internal identifier used within this .tscn file
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.gd" id="1"]
 
-# This creates the HealthBar scene with a ProgressBar node as the root.
-# ProgressBar is a built-in Godot UI element that displays a bar (like a health bar).
 [node name="HealthBar" type="ProgressBar"]
-
-# offset_* determines where the bar appears relative to its parent.
-# Top-left is at (0, 0), so negative values move it up and left.
-# This positions the bar above the player's head.
-offset_left = -50.0    # Move 50 pixels to the left
-offset_top = -40.0     # Move 40 pixels up
-offset_right = 50.0    # Extend 50 pixels to the right
-offset_bottom = -30.0  # Extend down to -30 (making a bar about 10 pixels tall)
-
-max_value = 100.0      # The bar represents a range from 0 to 100
-value = 100.0          # Start at 100 (full health)
-show_percentage = false # Don't display "100%" text on the bar
-
-# Attach the HealthBar.gd script to this ProgressBar node
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -30.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
 script = ExtResource("1")
