@@ -1,21 +1,41 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
 
+# External Resources - these reference files used by this scene
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HealthBar.tscn" id="2"]
 
+# SubResource - a resource defined within this scene file (not in a separate file)
+# This creates a collision shape: a rectangle 32 pixels wide and 48 pixels tall
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 48)
 
+# The root node of this scene
+# CharacterBody2D is a special Godot node type for characters that move and collide with physics
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1")
+script = ExtResource("1")  # Attach the Player.gd script to this node
 
+# First child: collision detection
+# This invisible shape defines the player's physical boundaries
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0)
-shape = SubResource("1")
+position = Vector2(0, 0)     # Position relative to parent (the Player node)
+shape = SubResource("1")     # Use the rectangle we defined above
 
+# Second child: visual appearance
+# This visible rectangle is what you see on screen (the blue square)
 [node name="Body" type="Polygon2D" parent="."]
+# polygon = list of 2D points that form the shape
+# (-16, -24) = top-left, (16, -24) = top-right, (16, 24) = bottom-right, (-16, 24) = bottom-left
+# This creates a 32x48 rectangle centered on the player
 polygon = PackedVector2Array(-16, -24, 16, -24, 16, 24, -16, 24)
-color = Color(0.4, 0.8, 1, 1)
+color = Color(0.4, 0.8, 1, 1)  # Blue color: (red, green, blue, alpha)
 
+# Third child: camera
+# This follows the player and shows what the player sees on screen
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
-zoom = Vector2(1, 1)
+current = true    # Make this the active camera (the one that's used)
+zoom = Vector2(1, 1)  # Camera zoom level (1.0 = normal size)
+
+# Fourth child: the health bar (instanced from HealthBar.tscn)
+# instance= means "use this entire scene as a node"
+# This is how you reuse scenes - define HealthBar.tscn once, then instance it here
+[node name="HealthBar" parent="." instance=ExtResource("2")]
