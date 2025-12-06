@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# Load required classes
+const Inventory = preload("res://scripts/systems/Inventory.gd")
+const Item = preload("res://scripts/resources/Item.gd")
+
 # Movement variables (editable in Godot editor with @export)
 @export var speed: float = 250.0
 @export var jump_velocity: float = -450.0
@@ -9,6 +13,10 @@ extends CharacterBody2D
 # Health system variables
 @export var max_health: float = 100.0  # Editable in editor - change this to make the player tougher/weaker
 var current_health: float              # Current health value (not exported, so not editable in editor)
+
+# Inventory system
+var inventory: Inventory
+var inventory_ui: CanvasLayer
 
 # This gets a reference to the HealthBar node from the scene tree.
 # @onready means it waits until the scene is ready before trying to find it.
@@ -20,6 +28,52 @@ var current_health: float              # Current health value (not exported, so 
 func _ready() -> void:
 	current_health = max_health  # Start with full health
 	_update_health_bar()         # Update the visual bar to show full health
+	
+	# Setup inventory system
+	_setup_inventory()
+
+# Setup the inventory system and UI
+func _setup_inventory() -> void:
+	# Create inventory node
+	inventory = Inventory.new()
+	inventory.max_slots = 20
+	add_child(inventory)
+	
+	# Create and setup inventory UI
+	inventory_ui = preload("res://scenes/ui/InventoryUI.tscn").instantiate()
+	add_child(inventory_ui)
+	inventory_ui.set_inventory(inventory)
+	
+	# Add some test items
+	_add_test_items()
+	
+	print("Inventory ready!")
+
+# Add test items to inventory (for demo purposes)
+func _add_test_items() -> void:
+	# Create test items
+	var wood = Item.new()
+	wood.id = "wood"
+	wood.display_name = "Wood Log"
+	wood.description = "A piece of wood from a tree"
+	wood.max_stack = 64
+	
+	var stone = Item.new()
+	stone.id = "stone"
+	stone.display_name = "Stone"
+	stone.description = "A piece of stone"
+	stone.max_stack = 64
+	
+	var copper_ore = Item.new()
+	copper_ore.id = "copper_ore"
+	copper_ore.display_name = "Copper Ore"
+	copper_ore.description = "Raw copper ore"
+	copper_ore.max_stack = 32
+	
+	# Add to inventory
+	inventory.add_item(wood, 5)
+	inventory.add_item(stone, 12)
+	inventory.add_item(copper_ore, 3)
 
 # This function reduces the player's health.
 # Example: take_damage(10) reduces health by 10 points.
@@ -82,3 +136,24 @@ func _physics_process(delta: float) -> void:
 		take_damage(10)
 	if Input.is_action_just_pressed("ui_cancel"):  # Escape key = heal
 		heal(15)
+	
+	# Test inventory - add/remove items with number keys
+	# Press 1 to add wood, 2 to remove wood, 3 to add stone
+	if Input.is_action_just_pressed("ui_1"):
+		var wood = Item.new()
+		wood.id = "wood"
+		wood.display_name = "Wood Log"
+		inventory.add_item(wood, 1)
+		print("Added wood. Inventory: ", inventory)
+	if Input.is_action_just_pressed("ui_2"):
+		var wood = Item.new()
+		wood.id = "wood"
+		wood.display_name = "Wood Log"
+		inventory.remove_item(wood, 1)
+		print("Removed wood. Inventory: ", inventory)
+	if Input.is_action_just_pressed("ui_3"):
+		var stone = Item.new()
+		stone.id = "stone"
+		stone.display_name = "Stone"
+		inventory.add_item(stone, 1)
+		print("Added stone. Inventory: ", inventory)
