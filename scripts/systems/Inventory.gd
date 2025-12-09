@@ -21,6 +21,9 @@ signal inventory_changed
 # Example: {"wood": 5, "stone": 12, "copper_ore": 3}
 var items: Dictionary = {}
 
+# Optional display names: item.id -> display_name (for UI)
+var item_names: Dictionary = {}
+
 # Maximum number of unique item types (slots)
 @export var max_slots: int = 20
 
@@ -39,6 +42,8 @@ func add_item(item: Item, quantity: int = 1) -> bool:
 	if item.id in items:
 		# Item exists, just increase quantity (stackable)
 		items[item.id] += quantity
+		if item.display_name != "":
+			item_names[item.id] = item.display_name
 		item_added.emit(item, quantity)
 		inventory_changed.emit()
 		return true
@@ -50,6 +55,8 @@ func add_item(item: Item, quantity: int = 1) -> bool:
 	
 	# Add new item
 	items[item.id] = quantity
+	if item.display_name != "":
+		item_names[item.id] = item.display_name
 	item_added.emit(item, quantity)
 	inventory_changed.emit()
 	return true
@@ -77,6 +84,7 @@ func remove_item(item: Item, quantity: int = 1) -> bool:
 	# If quantity is 0, remove the item completely
 	if items[item.id] <= 0:
 		items.erase(item.id)
+		item_names.erase(item.id)
 	
 	item_removed.emit(item, quantity)
 	inventory_changed.emit()
@@ -92,6 +100,12 @@ func get_item_quantity(item: Item) -> int:
 # Check if we have at least X of an item
 func has_item(item: Item, quantity: int = 1) -> bool:
 	return get_item_quantity(item) >= quantity
+
+# Get display name (falls back to id)
+func get_item_display_name(item_id: String) -> String:
+	if item_id in item_names:
+		return item_names[item_id]
+	return item_id
 
 # Get all items as an array (useful for UI)
 func get_all_items() -> Array[Dictionary]:

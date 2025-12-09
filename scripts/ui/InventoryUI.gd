@@ -13,6 +13,9 @@ var inventory: Inventory
 # Reference to the container where items are displayed
 @onready var item_list: VBoxContainer = $PanelContainer/VBoxContainer/ScrollContainer/ItemList
 
+# Item row scene for drag support
+const InventoryItemRow = preload("res://scripts/ui/InventoryItemRow.gd")
+
 # Reference to the entire UI panel
 @onready var panel: PanelContainer = $PanelContainer
 
@@ -66,27 +69,33 @@ func _refresh_display() -> void:
 		item_list.add_child(empty_label)
 		return
 	
-	# Display each item
+	# Display each item with draggable rows
 	for item_id: String in items_data:
 		var quantity = items_data[item_id]
-		
-		# Create a container for each item row
-		var item_row = HBoxContainer.new()
+		var display_name := item_id
+		if inventory.has_method("get_item_display_name"):
+			display_name = inventory.get_item_display_name(item_id)
+		var rect_color := _get_item_color(item_id)
+		var item_row = InventoryItemRow.new()
 		item_row.custom_minimum_size = Vector2(0, 30)
-		
-		# Item name label
-		var name_label = Label.new()
-		name_label.text = item_id
-		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		item_row.add_child(name_label)
-		
-		# Quantity label
-		var qty_label = Label.new()
-		qty_label.text = "x%d" % quantity
-		qty_label.modulate = Color.YELLOW
-		item_row.add_child(qty_label)
-		
+		item_row.setup(item_id, quantity, display_name)
+		item_row.set_count_color(rect_color)
+		item_row.clicked.connect(_on_item_row_clicked)
 		item_list.add_child(item_row)
+
+func _on_item_row_clicked(item_id: String) -> void:
+	print("Clicked item row: ", item_id)
+
+func _get_item_color(item_id: String) -> Color:
+	match item_id:
+		"wood":
+			return Color(0.45, 0.25, 0.1, 0.7)
+		"stone":
+			return Color(0.5, 0.5, 0.5, 0.7)
+		"copper_ore":
+			return Color(0.78, 0.45, 0.16, 0.7)
+		_:
+			return Color(0.2, 0.2, 0.2, 0.35)
 
 # Called when inventory changes
 func _on_inventory_changed() -> void:

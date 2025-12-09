@@ -3,6 +3,7 @@ extends CharacterBody2D
 # Load required classes
 const Inventory = preload("res://scripts/systems/Inventory.gd")
 const Item = preload("res://scripts/resources/Item.gd")
+const HotbarUI = preload("res://scenes/ui/HotbarUI.tscn")
 
 # Movement variables (editable in Godot editor with @export)
 @export var speed: float = 250.0
@@ -17,6 +18,7 @@ var current_health: float              # Current health value (not exported, so 
 # Inventory system
 var inventory: Inventory
 var inventory_ui: CanvasLayer
+var hotbar_ui: CanvasLayer
 
 # This gets a reference to the HealthBar node from the scene tree.
 # @onready means it waits until the scene is ready before trying to find it.
@@ -28,6 +30,7 @@ var inventory_ui: CanvasLayer
 func _ready() -> void:
 	current_health = max_health  # Start with full health
 	_update_health_bar()         # Update the visual bar to show full health
+	add_to_group("player")       # Tag for interactions like pickups
 	
 	# Setup inventory system
 	_setup_inventory()
@@ -43,6 +46,11 @@ func _setup_inventory() -> void:
 	inventory_ui = preload("res://scenes/ui/InventoryUI.tscn").instantiate()
 	add_child(inventory_ui)
 	inventory_ui.set_inventory(inventory)
+
+	# Create and setup hotbar UI
+	hotbar_ui = HotbarUI.instantiate()
+	add_child(hotbar_ui)
+	hotbar_ui.set_inventory(inventory)
 	
 	# Add some test items
 	_add_test_items()
