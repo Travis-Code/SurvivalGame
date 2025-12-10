@@ -4,9 +4,13 @@
 [ext_resource type="PackedScene" path="res://scenes/world/LogPickup.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/world/StonePickup.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/world/CopperPickup.tscn" id="4"]
+[ext_resource type="Script" path="res://scripts/world/Boulder.gd" id="5"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(800, 40)
+size = Vector2(1200, 40)
+
+[sub_resource type="CircleShape2D" id="2"]
+radius = 80.0
 
 [node name="Main" type="Node2D"]
 
@@ -14,15 +18,26 @@ size = Vector2(800, 40)
 position = Vector2(0, 200)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(400, 0)
+position = Vector2(600, 0)
 shape = SubResource("1")
 
 [node name="GroundVisual" type="Polygon2D" parent="Ground"]
-polygon = PackedVector2Array(0, -20, 800, -20, 800, 20, 0, 20)
+polygon = PackedVector2Array(0, -20, 1200, -20, 1200, 20, 0, 20)
 color = Color(0.2, 0.6, 0.3, 1)
 
 [node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(100, 100)
+
+[node name="Boulder" type="Area2D" parent="."]
+position = Vector2(600, 140)
+script = ExtResource("5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boulder"]
+shape = SubResource("2")
+
+[node name="Polygon2D" type="Polygon2D" parent="Boulder"]
+polygon = PackedVector2Array(80, 0, 56.5685, 56.5685, 0, 80, -56.5685, 56.5685, -80, 0, -56.5685, -56.5685, 0, -80, 56.5685, -56.5685)
+color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="LogPickup" parent="." instance=ExtResource("2")]
 position = Vector2(260, 160)
