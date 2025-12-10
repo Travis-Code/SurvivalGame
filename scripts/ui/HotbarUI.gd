@@ -29,6 +29,7 @@ func _create_slots() -> void:
 		slot.custom_minimum_size = slot_size
 		slot.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		slot.set_hotbar(self)
+		slot.slot_number = i + 1
 		slot_container.add_child(slot)
 		slots.append(slot)
 
@@ -40,12 +41,13 @@ func _on_inventory_changed() -> void:
 		return
 	for slot in slots:
 		var id = slot.assigned_item_id
+		var label_text = "[%d]" % slot.slot_number
 		if id == "":
 			if slot.label:
-				slot.label.text = ""
+				slot.label.text = label_text
 			continue
 		var qty := 0
 		if id in inventory.items:
 			qty = inventory.items[id]
 		if slot.label:
-			slot.label.text = "%s (%d)" % [id, qty]
+			slot.label.text = "%s %s (%d)" % [label_text, id, qty]

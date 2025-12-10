@@ -2,6 +2,7 @@ extends Panel
 
 var assigned_item_id: String = ""
 var hotbar: Node = null
+var slot_number: int = 0
 
 var label: Label
 var icon_rect: ColorRect
@@ -25,6 +26,7 @@ func _ready() -> void:
 		label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		add_child(label)
 		move_child(label, 1)  # keep label above icon
+	_update_visual()
 
 func set_hotbar(hb: Node) -> void:
 	hotbar = hb
@@ -35,7 +37,10 @@ func set_item_id(id: String) -> void:
 
 func _update_visual() -> void:
 	if label:
-		label.text = assigned_item_id
+		var label_text = "[%d]" % slot_number
+		if assigned_item_id != "":
+			label_text += " %s" % assigned_item_id
+		label.text = label_text
 		label.modulate = Color(1, 1, 1, 0.9)
 	if icon_rect:
 		icon_rect.color = _get_item_color(assigned_item_id)
