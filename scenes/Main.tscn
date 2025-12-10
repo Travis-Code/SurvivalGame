@@ -14,20 +14,6 @@ radius = 80.0
 
 [node name="Main" type="Node2D"]
 
-[node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(0, 200)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(600, 0)
-shape = SubResource("1")
-
-[node name="GroundVisual" type="Polygon2D" parent="Ground"]
-polygon = PackedVector2Array(0, -20, 1200, -20, 1200, 20, 0, 20)
-color = Color(0.2, 0.6, 0.3, 1)
-
-[node name="Player" parent="." instance=ExtResource("1")]
-position = Vector2(100, 100)
-
 [node name="Boulder" type="Area2D" parent="."]
 position = Vector2(600, 140)
 script = ExtResource("5")
@@ -56,3 +42,17 @@ position = Vector2(180, 160)
 
 [node name="CopperPickup2" parent="." instance=ExtResource("4")]
 position = Vector2(440, 160)
+
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(100, 100)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(600, 0)
+shape = SubResource("1")
+
+[node name="GroundVisual" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(0, -20, 1200, -20, 1200, 20, 0, 20)
+color = Color(0.2, 0.6, 0.3, 1)
