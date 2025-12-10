@@ -94,6 +94,8 @@ func _get_item_color(item_id: String) -> Color:
 			return Color(0.5, 0.5, 0.5, 0.7)
 		"copper_ore":
 			return Color(0.78, 0.45, 0.16, 0.7)
+		"pickaxe":
+			return Color(0.3, 0.3, 0.4, 0.7)
 		_:
 			return Color(0.2, 0.2, 0.2, 0.35)
 

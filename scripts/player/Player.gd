@@ -78,10 +78,17 @@ func _add_test_items() -> void:
 	copper_ore.description = "Raw copper ore"
 	copper_ore.max_stack = 32
 	
+	var pickaxe = Item.new()
+	pickaxe.id = "pickaxe"
+	pickaxe.display_name = "Pickaxe"
+	pickaxe.description = "A tool for mining stone and ore"
+	pickaxe.max_stack = 1
+	
 	# Add to inventory
 	inventory.add_item(wood, 5)
 	inventory.add_item(stone, 12)
 	inventory.add_item(copper_ore, 3)
+	inventory.add_item(pickaxe, 1)
 
 # This function reduces the player's health.
 # Example: take_damage(10) reduces health by 10 points.
