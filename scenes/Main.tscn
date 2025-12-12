@@ -15,7 +15,7 @@ radius = 80.0
 [node name="Main" type="Node2D"]
 
 [node name="Boulder" type="Area2D" parent="."]
-position = Vector2(600, 340)
+position = Vector2(600, 810)
 script = ExtResource("5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boulder"]
@@ -26,28 +26,28 @@ polygon = PackedVector2Array(80, 0, 56.5685, 56.5685, 0, 80, -56.5685, 56.5685, 
 color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="LogPickup" parent="." instance=ExtResource("2")]
-position = Vector2(260, 360)
+position = Vector2(260, 830)
 
 [node name="LogPickup2" parent="." instance=ExtResource("2")]
-position = Vector2(520, 360)
+position = Vector2(520, 830)
 
 [node name="StonePickup" parent="." instance=ExtResource("3")]
-position = Vector2(360, 360)
+position = Vector2(360, 830)
 
 [node name="StonePickup2" parent="." instance=ExtResource("3")]
-position = Vector2(620, 360)
+position = Vector2(620, 830)
 
 [node name="CopperPickup" parent="." instance=ExtResource("4")]
-position = Vector2(180, 360)
+position = Vector2(180, 830)
 
 [node name="CopperPickup2" parent="." instance=ExtResource("4")]
-position = Vector2(440, 360)
+position = Vector2(440, 830)
 
 [node name="Player" parent="." instance=ExtResource("1")]
-position = Vector2(100, 300)
+position = Vector2(100, 770)
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(0, 400)
+position = Vector2(0, 870)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 position = Vector2(600, 0)
@@ -58,5 +58,5 @@ polygon = PackedVector2Array(0, -20, 1200, -20, 1200, 20, 0, 20)
 color = Color(0.2, 0.6, 0.3, 1)
 
 [node name="DirtLayer" type="Polygon2D" parent="Ground"]
-polygon = PackedVector2Array(0, 20, 1200, 20, 1200, 680, 0, 680)
+polygon = PackedVector2Array(0, 20, 1200, 20, 1200, 580, 0, 580)
 color = Color(0.4, 0.25, 0.15, 1)
