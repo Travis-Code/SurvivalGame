@@ -23,7 +23,7 @@ margin_right = -8.0
 margin_bottom = -8.0
 
 [node name="Title" type="Label" parent="PanelContainer/VBoxContainer"]
-text = "Inventory"
+text = "Bag"
 custom_minimum_size = Vector2(0, 30)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
