@@ -4,12 +4,12 @@
 [ext_resource type="Script" path="res://scripts/world/Door.gd" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(1920, 50)
+size = Vector2(1920, 5)
 
 [node name="HouseInterior" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1")]
-position = Vector2(960, 800)
+position = Vector2(960, 895)
 
 [node name="FloorBody" type="StaticBody2D" parent="."]
 position = Vector2(0, 900)

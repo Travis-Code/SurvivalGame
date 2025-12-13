@@ -11,9 +11,9 @@ func _ready() -> void:
 	
 	panel_container = PanelContainer.new()
 	panel_container.anchor_left = 0.01
-	panel_container.anchor_top = 0.1
+	panel_container.anchor_top = 0.05
 	panel_container.anchor_right = 0.25
-	panel_container.anchor_bottom = 0.9
+	panel_container.anchor_bottom = 0.75
 	add_child(panel_container)
 	
 	var vbox = VBoxContainer.new()
@@ -69,7 +69,8 @@ func _update_debug_info() -> void:
 	var scene_label = _create_info_label("SCENE INFO", Color(1, 1, 0.5, 1))
 	item_list.add_child(scene_label)
 	
-	var scene_name = get_tree().current_scene.name
+	var current_scene = get_tree().current_scene
+	var scene_name = current_scene.name if current_scene else "Unknown"
 	var scene_info = _create_simple_label("Scene: %s" % scene_name)
 	item_list.add_child(scene_info)
 	
@@ -91,18 +92,19 @@ func _update_debug_info() -> void:
 		# Inventory if available
 		if player.has_meta("inventory"):
 			var inv = player.get_meta("inventory")
-			var inv_header = _create_info_label("INVENTORY", Color(0.7, 0.5, 1, 1))
-			item_list.add_child(inv_header)
-			
-			if inv.items:
-				for item_id in inv.items:
-					var qty = inv.items[item_id]
-					var item_label = _create_simple_label("%s: %d" % [item_id, qty])
-					item_list.add_child(item_label)
-			else:
-				var empty_label = _create_simple_label("[Empty]")
-				empty_label.modulate = Color(0.5, 0.5, 0.5, 0.8)
-				item_list.add_child(empty_label)
+			if inv:
+				var inv_header = _create_info_label("INVENTORY", Color(0.7, 0.5, 1, 1))
+				item_list.add_child(inv_header)
+				
+				if inv.has_meta("items") or inv.items:
+					for item_id in inv.items:
+						var qty = inv.items[item_id]
+						var item_label = _create_simple_label("%s: %d" % [item_id, qty])
+						item_list.add_child(item_label)
+				else:
+					var empty_label = _create_simple_label("[Empty]")
+					empty_label.modulate = Color(0.5, 0.5, 0.5, 0.8)
+					item_list.add_child(empty_label)
 	
 	# Objects list
 	var objects_header = _create_info_label("OBJECTS", Color(0.7, 0.8, 1, 1))
@@ -112,6 +114,10 @@ func _update_debug_info() -> void:
 	_create_labels_for_tree(root)
 
 func _create_labels_for_tree(node: Node) -> void:
+	# Null check
+	if not node:
+		return
+	
 	# Only create labels for Node2D nodes (skip Label nodes and the player)
 	if node is Node2D and not node is Label and node != player:
 		var label_row = _create_label_row(node.name, node)
