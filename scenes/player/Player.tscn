@@ -20,5 +20,9 @@ color = Color(0.4, 0.8, 1, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2(1, 1)
+offset = Vector2(0, 150)
+position_smoothing_enabled = true
+position_smoothing_speed = 5.0
+limit_bottom = 1080
 
 [node name="HealthBar" parent="." instance=ExtResource("2")]
