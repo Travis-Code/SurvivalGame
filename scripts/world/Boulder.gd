@@ -1,6 +1,6 @@
 extends Area2D
 
-const Item = preload("res://scripts/resources/Item.gd")
+const ItemFactory = preload("res://scripts/resources/ItemFactory.gd")
 
 @export var item_id: String = "stone"
 @export var amount: int = 1
@@ -12,22 +12,22 @@ func _on_input_event(_viewport, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		if mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
-			_add_stone_to_inventory()
+			_give_item_to_player()
 
-func _add_stone_to_inventory() -> void:
+func _give_item_to_player() -> void:
 	var players := get_tree().get_nodes_in_group("player")
 	if players.is_empty():
 		print("No player found")
 		return
+	
 	var player = players[0]
 	var inv = player.get("inventory")
-	if inv == null:
+	if not inv:
 		print("Player inventory not found")
 		return
-	var stone := Item.new()
-	stone.id = item_id
-	stone.display_name = "Stone"
-	stone.description = "A piece of stone"
-	stone.max_stack = 64
-	inv.add_item(stone, amount)
-	print("Added %d %s to inventory" % [amount, item_id])
+	
+	var item = ItemFactory.create_item(item_id)
+	if item:
+		inv.add_item(item, amount)
+		print("Added %d %s to inventory" % [amount, item_id])
+

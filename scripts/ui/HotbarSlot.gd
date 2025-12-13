@@ -1,5 +1,7 @@
 extends Panel
 
+const ItemFactory = preload("res://scripts/resources/ItemFactory.gd")
+
 var assigned_item_id: String = ""
 var hotbar: Node = null
 var slot_number: int = 0
@@ -43,12 +45,12 @@ func _update_visual() -> void:
 		label.text = label_text
 		label.modulate = Color(1, 1, 1, 0.9)
 	if icon_rect:
-		icon_rect.color = _get_item_color(assigned_item_id)
+		icon_rect.color = ItemFactory.get_item_color(assigned_item_id)
 
 func clear() -> void:
 	set_item_id("")
 	if icon_rect:
-		icon_rect.color = _get_item_color("")
+		icon_rect.color = ItemFactory.get_item_color("")
 
 func _can_drop_data(_pos, data) -> bool:
 	if typeof(data) == TYPE_DICTIONARY and data.has("item_id"):
@@ -64,17 +66,3 @@ func _drop_data(_pos, data) -> void:
 	if hotbar:
 		hotbar.notify_slot_changed(self)
 
-func _get_item_color(id: String) -> Color:
-	match id:
-		"wood":
-			return Color(0.45, 0.25, 0.1, 0.9)
-		"stone":
-			return Color(0.5, 0.5, 0.5, 0.9)
-		"copper_ore":
-			return Color(0.78, 0.45, 0.16, 0.9)
-		"pickaxe":
-			return Color(0.3, 0.3, 0.4, 0.9)
-		"":
-			return Color(0.15, 0.15, 0.15, 0.6)
-		_:
-			return Color(0.25, 0.25, 0.25, 0.8)

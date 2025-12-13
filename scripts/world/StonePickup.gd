@@ -1,6 +1,6 @@
 extends Area2D
 
-const Item = preload("res://scripts/resources/Item.gd")
+const ItemFactory = preload("res://scripts/resources/ItemFactory.gd")
 
 @export var amount: int = 1
 
@@ -19,11 +19,8 @@ func _on_body_entered(body: Node) -> void:
 	if not inv.has_method("add_item"):
 		push_warning("Inventory node missing add_item()")
 		return
-	var stone_item := Item.new()
-	stone_item.id = "stone"
-	stone_item.display_name = "Stone"
-	stone_item.description = "A piece of stone"
-	stone_item.max_stack = 64
+	var stone_item = ItemFactory.create_item("stone")
 	var added: bool = inv.add_item(stone_item, amount)
 	if added:
 		queue_free()
+
