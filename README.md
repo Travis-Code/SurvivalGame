@@ -34,13 +34,32 @@ A 2D survival and base-building game with scavenging mechanics.
 - **A/D or Arrow Keys**: Move left/right
 - **W/Space**: Jump
 - **E**: Interact
-- **I**: Open inventory
+- **B**: Open Bag (Inventory)
+- **P**: Toggle Debug Panel
 
 ## Getting Started
 
 1. Open the project in Godot 4.x
-2. The main scene will be set up once initial development begins
-3. Press F5 in Godot to run the game
+2. Press F5 to run the game
+3. **Press P** to see the debug panel showing scene objects, player position, velocity, and inventory
+
+## Current Features
+
+### Gameplay
+- **2D Platformer**: Move left/right, jump with physics
+- **Extended Platforms**: 4800px wide platforms for exploration
+- **Inventory System**: Collect items (wood, stone, copper ore) shown in the Bag UI
+- **Resource Nodes**: Boulder (mineable with pickaxe), pickups (wood, stone, copper)
+- **Scene Transitions**: Portal system connecting different areas
+- **Interior Exploration**: Clickable house entrance leads to interior scene
+
+### Debug Features
+- **Debug Panel (P key)**: Real-time display of scene information
+  - Current scene name
+  - Player position and velocity
+  - Player ground contact status
+  - Inventory contents
+  - All scene objects with node types
 
 ## Project Structure
 
