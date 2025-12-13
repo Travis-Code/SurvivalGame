@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/world/LogPickup.tscn" id="2"]
@@ -11,6 +11,9 @@ size = Vector2(4800, 40)
 
 [sub_resource type="CircleShape2D" id="2"]
 radius = 80.0
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(2000, 580)
 
 [node name="Level2" type="Node2D"]
 
@@ -119,3 +122,17 @@ color = Color(0.2, 0.4, 0.8, 0.8)
 [node name="WaterRight" type="Polygon2D" parent="Ground"]
 polygon = PackedVector2Array(4800, 20, 6800, 20, 6800, 600, 4800, 600)
 color = Color(0.2, 0.4, 0.8, 0.8)
+
+[node name="WaterAreaLeft" type="Area2D" parent="Ground"]
+position = Vector2(-1000, 310)
+groups = ["water"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/WaterAreaLeft"]
+shape = SubResource("3")
+
+[node name="WaterAreaRight" type="Area2D" parent="Ground"]
+position = Vector2(5800, 310)
+groups = ["water"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/WaterAreaRight"]
+shape = SubResource("3")

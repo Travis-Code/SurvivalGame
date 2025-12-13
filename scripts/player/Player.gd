@@ -9,6 +9,8 @@ const HotbarUI = preload("res://scenes/ui/HotbarUI.tscn")
 @export var jump_velocity: float = -450.0
 @export var gravity: float = 1200.0
 @export var max_fall_speed: float = 1200.0
+@export var water_gravity: float = 250.0
+@export var water_max_fall_speed: float = 220.0
 
 # Health system variables
 @export var max_health: float = 100.0
@@ -18,6 +20,7 @@ var current_health: float
 var inventory: Inventory
 var inventory_ui: CanvasLayer
 var hotbar_ui: CanvasLayer
+var in_water: bool = false
 
 @onready var health_bar: ProgressBar = $HealthBar
 
@@ -25,6 +28,8 @@ func _ready() -> void:
 	current_health = max_health
 	_update_health_bar()
 	add_to_group("player")
+	area_entered.connect(_on_area_entered)
+	area_exited.connect(_on_area_exited)
 	_setup_inventory()
 
 func _setup_inventory() -> void:
@@ -79,10 +84,21 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	velocity.x = input_dir * speed
 
+	var active_gravity := in_water ? water_gravity : gravity
+	var active_max_fall := in_water ? water_max_fall_speed : max_fall_speed
+
 	if not is_on_floor():
-		velocity.y = min(velocity.y + gravity * delta, max_fall_speed)
+		velocity.y = min(velocity.y + active_gravity * delta, active_max_fall)
 	elif Input.is_action_just_pressed("jump"):
 		velocity.y = jump_velocity
 
 	move_and_slide()
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("water"):
+		in_water = true
+
+func _on_area_exited(area: Area2D) -> void:
+	if area.is_in_group("water"):
+		in_water = false
 
