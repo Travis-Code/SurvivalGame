@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/Portal.tscn" id="6"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(1200, 40)
+size = Vector2(4800, 40)
 
 [sub_resource type="CircleShape2D" id="2"]
 radius = 80.0
@@ -55,13 +55,13 @@ destination_scene = "res://scenes/Main.tscn"
 position = Vector2(0, 900)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(600, 0)
+position = Vector2(2400, 0)
 shape = SubResource("1")
 
 [node name="GroundVisual" type="Polygon2D" parent="Ground"]
-polygon = PackedVector2Array(0, -20, 1200, -20, 1200, 20, 0, 20)
+polygon = PackedVector2Array(0, -20, 4800, -20, 4800, 20, 0, 20)
 color = Color(0.2, 0.6, 0.3, 1)
 
 [node name="DirtLayer" type="Polygon2D" parent="Ground"]
-polygon = PackedVector2Array(0, 20, 1200, 20, 1200, 580, 0, 580)
+polygon = PackedVector2Array(0, 20, 4800, 20, 4800, 580, 0, 580)
 color = Color(0.4, 0.25, 0.15, 1)
