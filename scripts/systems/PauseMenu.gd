@@ -26,9 +26,11 @@ func toggle_pause() -> void:
 	
 	# Focus resume button when pausing
 	if is_paused:
+		panel_container.mouse_filter = Control.MOUSE_FILTER_STOP
 		resume_btn.grab_focus()
 	else:
 		panel_container.visible = false
+		panel_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _create_pause_menu() -> void:
 	panel_container = PanelContainer.new()
@@ -36,7 +38,7 @@ func _create_pause_menu() -> void:
 	panel_container.anchor_top = 0.35
 	panel_container.anchor_right = 0.65
 	panel_container.anchor_bottom = 0.65
-	panel_container.mouse_filter = Control.MOUSE_FILTER_STOP
+	panel_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(panel_container)
 	
 	var vbox = VBoxContainer.new()

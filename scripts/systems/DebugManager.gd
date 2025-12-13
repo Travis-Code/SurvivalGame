@@ -4,10 +4,19 @@ var debug_labels_visible: bool = false
 var panel_container: PanelContainer
 var item_list: VBoxContainer
 var player: Node2D = null
+var scene_label: Label
 
 func _ready() -> void:
 	# Create panel layout similar to Bag menu
 	layer = 100
+
+	# Always-visible scene badge
+	scene_label = Label.new()
+	scene_label.position = Vector2(12, 12)
+	scene_label.add_theme_font_size_override("font_size", 12)
+	scene_label.modulate = Color(1, 1, 1, 0.9)
+	scene_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(scene_label)
 	
 	panel_container = PanelContainer.new()
 	panel_container.anchor_left = 0.01
@@ -49,6 +58,17 @@ func _ready() -> void:
 	panel_container.visible = false
 
 func _process(_delta: float) -> void:
+	var cs = get_tree().current_scene
+	var path = cs.scene_file_path if cs else ""
+	var display_name = "Unknown"
+	if path.ends_with("Main.tscn"):
+		display_name = "Home"
+	elif path.ends_with("Quarry.tscn"):
+		display_name = "Quarry"
+	else:
+		display_name = cs.name if cs else "Unknown"
+	scene_label.text = "Scene: %s" % display_name
+
 	if Input.is_action_just_pressed("debug_toggle"):
 		debug_labels_visible = !debug_labels_visible
 		panel_container.visible = debug_labels_visible
