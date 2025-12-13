@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/Portal.tscn" id="2"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(1200, 40)
+
+[node name="Level2" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(600, 400)
+
+[node name="Portal" parent="." instance=ExtResource("2")]
+position = Vector2(60, 470)
+destination_scene = "res://scenes/Main.tscn"
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(600, 0)
+shape = SubResource("1")
+
+[node name="GroundVisual" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(0, -20, 1200, -20, 1200, 20, 0, 20)
+color = Color(0.3, 0.4, 0.6, 1)
+
+[node name="DirtLayer" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(0, 20, 1200, 20, 1200, 580, 0, 580)
+color = Color(0.3, 0.2, 0.1, 1)

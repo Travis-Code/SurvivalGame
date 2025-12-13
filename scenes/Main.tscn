@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world/StonePickup.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/world/CopperPickup.tscn" id="4"]
 [ext_resource type="Script" path="res://scripts/world/Boulder.gd" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/world/Portal.tscn" id="6"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(1200, 40)
@@ -45,6 +46,9 @@ position = Vector2(440, 860)
 
 [node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(100, 800)
+
+[node name="Portal" parent="." instance=ExtResource("6")]
+position = Vector2(60, 870)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(0, 900)
