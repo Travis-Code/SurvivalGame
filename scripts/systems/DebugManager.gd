@@ -23,6 +23,8 @@ func _ready() -> void:
 	panel_container.anchor_top = 0.05
 	panel_container.anchor_right = 0.25
 	panel_container.anchor_bottom = 0.75
+	panel_container.visible = false
+	panel_container.mouse_filter = Control.MOUSE_FILTER_IGNORE  # Start with IGNORE since hidden
 	add_child(panel_container)
 	
 	var vbox = VBoxContainer.new()
@@ -72,6 +74,8 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug_toggle"):
 		debug_labels_visible = !debug_labels_visible
 		panel_container.visible = debug_labels_visible
+		# Set mouse filter to prevent blocking clicks when hidden
+		panel_container.mouse_filter = Control.MOUSE_FILTER_STOP if debug_labels_visible else Control.MOUSE_FILTER_IGNORE
 	
 	if debug_labels_visible:
 		_update_debug_info()

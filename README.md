@@ -33,32 +33,35 @@ A 2D survival and base-building game with scavenging mechanics.
 ## Controls
 - **A/D or Arrow Keys**: Move left/right
 - **W/Space**: Jump
-- **E**: Interact
-- **B**: Open Bag (Inventory)
-- **P**: Toggle Debug Panel
+- **E**: Interact with objects
+- **I**: Open Inventory
+- **ESC**: Pause Menu
+- **Left Click**: Click on portals to travel between scenes, click boulders to mine them
 
 ## Getting Started
 
 1. Open the project in Godot 4.x
 2. Press F5 to run the game
-3. **Press P** to see the debug panel showing scene objects, player position, velocity, and inventory
-
+3. Game starts at the main menu - click "Start Game" to begin
+4. Use portals (cyan rectangles) to travel between Home and Quarry scenes
 ## Current Features
 
 ### Gameplay
-- **2D Platformer**: Move left/right, jump with physics
-- **Extended Platforms**: 4800px wide platforms for exploration
-- **Inventory System**: Collect items (wood, stone, copper ore) shown in the Bag UI
-- **Resource Nodes**: Boulder (mineable with pickaxe), pickups (wood, stone, copper)
-- **Scene Transitions**: Portal system connecting different areas
-- **Interior Exploration**: Clickable house entrance leads to interior scene
+- **Main Menu**: Start screen with Start Game and Quit options
+- **Pause Menu**: Press ESC to pause/resume or quit to main menu
+- **2D Platformer**: Move left/right, jump with physics-based controls
+- **Scene Navigation**: Click on cyan portals to travel between Home and Quarry
+- **Home Scene**: Your base area with a house and portal to the Quarry
+- **Quarry Scene**: Mining area with boulders and resource pickups
+- **Mining System**: Click boulders multiple times to break them (6-14 clicks based on size)
+- **Inventory System**: Collect items (wood, stone, copper ore) shown in the Inventory UI (I key)
+- **Resource Nodes**: Various sized boulders in the Quarry, wood and copper pickups
+- **Interior Exploration**: Click on the house to enter the interior
+- **Scene Label**: Always-visible indicator showing current scene (Home/Quarry)
+- **Water Boundaries**: Blue water fills the areas beyond platform edges
 
 ### Debug Features
-- **Debug Panel (P key)**: Real-time display of scene information
-  - Current scene name
-  - Player position and velocity
-  - Player ground contact status
-  - Inventory contents
+- Scene name display in top-left corner
   - All scene objects with node types
 
 ## Project Structure

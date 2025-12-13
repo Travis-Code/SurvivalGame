@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/world/LogPickup.tscn" id="2"]
@@ -8,6 +8,9 @@
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(4800, 40)
+
+[sub_resource type="CircleShape2D" id="2"]
+radius = 80.0
 
 [node name="Level2" type="Node2D"]
 
@@ -91,7 +94,7 @@ position = Vector2(440, 860)
 position = Vector2(100, 800)
 
 [node name="Portal" parent="." instance=ExtResource("5")]
-position = Vector2(60, 870)
+position = Vector2(60, 805)
 destination_scene = "res://scenes/Main.tscn"
 
 [node name="Ground" type="StaticBody2D" parent="."]
@@ -108,3 +111,11 @@ color = Color(0.2, 0.6, 0.3, 1)
 [node name="DirtLayer" type="Polygon2D" parent="Ground"]
 polygon = PackedVector2Array(0, 20, 4800, 20, 4800, 580, 0, 580)
 color = Color(0.4, 0.25, 0.15, 1)
+
+[node name="WaterLeft" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(-2000, 20, 0, 20, 0, 600, -2000, 600)
+color = Color(0.2, 0.4, 0.8, 0.8)
+
+[node name="WaterRight" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(4800, 20, 6800, 20, 6800, 600, 4800, 600)
+color = Color(0.2, 0.4, 0.8, 0.8)
