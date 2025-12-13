@@ -9,14 +9,14 @@ size = Vector2(1200, 40)
 [node name="Level2" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1")]
-position = Vector2(600, 400)
+position = Vector2(600, 800)
 
 [node name="Portal" parent="." instance=ExtResource("2")]
-position = Vector2(60, 470)
+position = Vector2(60, 870)
 destination_scene = "res://scenes/Level2.tscn"
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(0, 500)
+position = Vector2(0, 900)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 position = Vector2(600, 0)
