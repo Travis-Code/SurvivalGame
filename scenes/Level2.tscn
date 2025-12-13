@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/world/LogPickup.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/world/StonePickup.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/world/CopperPickup.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/world/Portal.tscn" id="5"]
 
