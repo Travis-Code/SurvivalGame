@@ -1,57 +1,22 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/world/LogPickup.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/world/StonePickup.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/world/CopperPickup.tscn" id="4"]
-[ext_resource type="Script" path="res://scripts/world/Boulder.gd" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/world/Portal.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/world/Portal.tscn" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(1200, 40)
 
-[sub_resource type="CircleShape2D" id="2"]
-radius = 80.0
-
-[node name="Main" type="Node2D"]
-
-[node name="Boulder" type="Area2D" parent="."]
-position = Vector2(600, 840)
-script = ExtResource("5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boulder"]
-shape = SubResource("2")
-
-[node name="Polygon2D" type="Polygon2D" parent="Boulder"]
-polygon = PackedVector2Array(80, 0, 56.5685, 56.5685, 0, 80, -56.5685, 56.5685, -80, 0, -56.5685, -56.5685, 0, -80, 56.5685, -56.5685)
-color = Color(0.5, 0.5, 0.5, 1)
-
-[node name="LogPickup" parent="." instance=ExtResource("2")]
-position = Vector2(260, 860)
-
-[node name="LogPickup2" parent="." instance=ExtResource("2")]
-position = Vector2(520, 860)
-
-[node name="StonePickup" parent="." instance=ExtResource("3")]
-position = Vector2(360, 860)
-
-[node name="StonePickup2" parent="." instance=ExtResource("3")]
-position = Vector2(620, 860)
-
-[node name="CopperPickup" parent="." instance=ExtResource("4")]
-position = Vector2(180, 860)
-
-[node name="CopperPickup2" parent="." instance=ExtResource("4")]
-position = Vector2(440, 860)
+[node name="Level2" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1")]
-position = Vector2(100, 800)
+position = Vector2(600, 400)
 
-[node name="Portal" parent="." instance=ExtResource("6")]
-position = Vector2(60, 870)
+[node name="Portal" parent="." instance=ExtResource("2")]
+position = Vector2(60, 470)
+destination_scene = "res://scenes/Level2.tscn"
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(0, 900)
+position = Vector2(0, 500)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 position = Vector2(600, 0)
@@ -59,8 +24,8 @@ shape = SubResource("1")
 
 [node name="GroundVisual" type="Polygon2D" parent="Ground"]
 polygon = PackedVector2Array(0, -20, 1200, -20, 1200, 20, 0, 20)
-color = Color(0.2, 0.6, 0.3, 1)
+color = Color(0.3, 0.4, 0.6, 1)
 
 [node name="DirtLayer" type="Polygon2D" parent="Ground"]
 polygon = PackedVector2Array(0, 20, 1200, 20, 1200, 580, 0, 580)
-color = Color(0.4, 0.25, 0.15, 1)
+color = Color(0.3, 0.2, 0.1, 1)
