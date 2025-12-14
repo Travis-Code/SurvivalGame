@@ -1,15 +1,16 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/world/Portal.tscn" id="2"]
 [ext_resource type="Texture2D" path="res://assets/sprites/house.png" id="3"]
 [ext_resource type="Script" path="res://scripts/world/House.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/DebugLabel.gd" id="5"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(4800, 40)
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(2000, 580)
+size = Vector2(2000, 1000)
 
 
 [node name="Main" type="Node2D"]
@@ -20,12 +21,34 @@ size = Vector2(200, 200)
 color = Color(0.8, 0.4, 0.2, 1)
 script = ExtResource("4")
 
+[node name="HouseLabel" type="Label" parent="HousePlaceHolder"]
+position = Vector2(100, 100)
+text = "HOUSE DOOR"
+theme_font_size_override = 16
+offset_left = -70
+offset_top = -15
+offset_right = 70
+offset_bottom = 15
+mouse_filter = 2
+script = ExtResource("5")
+
 [node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(600, 800)
 
 [node name="Portal" parent="." instance=ExtResource("2")]
 position = Vector2(900, 800)
 destination_scene = "res://scenes/Quarry.tscn"
+
+[node name="PortalLabel" type="Label" parent="Portal"]
+position = Vector2(0, -100)
+text = "PORTAL TO QUARRY"
+theme_font_size_override = 16
+offset_left = -95
+offset_top = -15
+offset_right = 95
+offset_bottom = 15
+mouse_filter = 2
+script = ExtResource("5")
 
 
 [node name="Ground" type="StaticBody2D" parent="."]
@@ -39,6 +62,17 @@ shape = SubResource("1")
 polygon = PackedVector2Array(0, -20, 4800, -20, 4800, 20, 0, 20)
 color = Color(0.3, 0.4, 0.6, 1)
 
+[node name="PlatformLabel" type="Label" parent="Ground"]
+position = Vector2(2400, 850)
+text = "MAIN PLATFORM"
+theme_font_size_override = 32
+offset_left = -100
+offset_top = -20
+offset_right = 100
+offset_bottom = 20
+mouse_filter = 2
+script = ExtResource("5")
+
 [node name="DirtLayer" type="Polygon2D" parent="Ground"]
 polygon = PackedVector2Array(0, 20, 4800, 20, 4800, 580, 0, 580)
 color = Color(0.3, 0.2, 0.1, 1)
@@ -50,6 +84,80 @@ color = Color(0.2, 0.4, 0.8, 0.8)
 [node name="WaterRight" type="Polygon2D" parent="Ground"]
 polygon = PackedVector2Array(4800, 20, 6800, 20, 6800, 600, 4800, 600)
 color = Color(0.2, 0.4, 0.8, 0.8)
+
+[node name="Underwater" type="StaticBody2D" parent="."]
+position = Vector2(-1000, 1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Underwater"]
+position = Vector2(1000, 0)
+shape = SubResource("1")
+
+[node name="UndergroundVisual" type="Polygon2D" parent="Underwater"]
+polygon = PackedVector2Array(0, -20, 2000, -20, 2000, 20, 0, 20)
+color = Color(0.5, 0.3, 0.2, 1)
+
+[node name="UndergroundLayer" type="Polygon2D" parent="Underwater"]
+polygon = PackedVector2Array(0, 20, 2000, 20, 2000, 300, 0, 300)
+color = Color(0.2, 0.1, 0.05, 1)
+
+[node name="Label" type="Label" parent="Underwater"]
+position = Vector2(1000, 950)
+text = "WATER LEFT PLATFORM"
+theme_font_size_override = 16
+offset_left = -110
+offset_top = -15
+offset_right = 110
+offset_bottom = 15
+mouse_filter = 2
+script = ExtResource("5")
+
+[node name="RampLeft" type="StaticBody2D" parent="."]
+position = Vector2(-400, 900)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RampLeft"]
+polygon = PackedVector2Array(0, 100, 400, 0, 400, 20, 0, 120)
+
+[node name="RampVisual" type="Polygon2D" parent="RampLeft"]
+polygon = PackedVector2Array(0, 100, 400, 0, 400, 20, 0, 120)
+color = Color(0.4, 0.5, 0.7, 1)
+
+[node name="Label" type="Label" parent="RampLeft"]
+position = Vector2(200, 50)
+text = "RAMP TO MAIN"
+horizontal_alignment = 1
+theme_font_size_override = 14
+offset_left = -70
+offset_top = -10
+offset_right = 70
+offset_bottom = 10
+mouse_filter = 2
+script = ExtResource("5")
+
+[node name="UndergroundRight" type="StaticBody2D" parent="."]
+position = Vector2(5800, 1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UndergroundRight"]
+position = Vector2(1000, 0)
+shape = SubResource("1")
+
+[node name="UndergroundVisual" type="Polygon2D" parent="UndergroundRight"]
+polygon = PackedVector2Array(0, -20, 2000, -20, 2000, 20, 0, 20)
+color = Color(0.5, 0.3, 0.2, 1)
+
+[node name="UndergroundLayer" type="Polygon2D" parent="UndergroundRight"]
+polygon = PackedVector2Array(0, 20, 2000, 20, 2000, 300, 0, 300)
+color = Color(0.2, 0.1, 0.05, 1)
+
+[node name="Label" type="Label" parent="UndergroundRight"]
+position = Vector2(1000, 950)
+text = "WATER RIGHT PLATFORM"
+theme_font_size_override = 16
+offset_left = -130
+offset_top = -15
+offset_right = 130
+offset_bottom = 15
+mouse_filter = 2
+script = ExtResource("5")
 
 [node name="WaterAreaLeft" type="Area2D" parent="Ground"]
 position = Vector2(-1000, 310)

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal debug_state_changed(is_visible: bool)
+
 var debug_labels_visible: bool = false
 var panel_container: PanelContainer
 var item_list: VBoxContainer
@@ -76,6 +78,8 @@ func _process(_delta: float) -> void:
 		panel_container.visible = debug_labels_visible
 		# Set mouse filter to prevent blocking clicks when hidden
 		panel_container.mouse_filter = Control.MOUSE_FILTER_STOP if debug_labels_visible else Control.MOUSE_FILTER_IGNORE
+		# Broadcast debug state change to all scene labels
+		debug_state_changed.emit(debug_labels_visible)
 	
 	if debug_labels_visible:
 		_update_debug_info()
